@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Domótica Santaní | Hogares Inteligentes</title>
+  <meta name="description" content="Automatización del hogar en San Estanislao. Control de iluminación, climatización, seguridad y más.">
+  <meta name="theme-color" content="#0A1F44">
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <div class="nav__logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Domótica <strong>Santaní</strong></span>
+      </div>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="#inicio"    class="nav__link">Inicio</a></li>
+        <li><a href="#servicios" class="nav__link">Servicios</a></li>
+        <li><a href="#nosotros"  class="nav__link">Nosotros</a></li>
+        <li><a href="#contacto"  class="nav__link">Contacto</a></li>
+      </ul>
+      <div class="nav__right">
+        <a href="admin/index.html" class="btn-admin">🔒</a>
+        <button class="nav__toggle" id="navToggle" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="hero__grid"></div>
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+    </div>
+    <div class="container hero__content">
+      <div class="hero__badge reveal">🏠 Tecnología para tu hogar</div>
+      <h1 class="hero__title reveal">Transformamos tu casa en un <em>hogar inteligente</em></h1>
+      <p class="hero__subtitle reveal">Automatización profesional en San Estanislao. Control total desde tu celular, mayor confort y seguridad para tu familia.</p>
+      <div class="hero__ctas reveal">
+        <a href="#servicios" class="btn btn--primary">Ver servicios y precios</a>
+        <a href="https://wa.me/595975847738?text=Hola,%20me%20interesa%20información%20sobre%20domótica" class="btn btn--whatsapp" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="hero__stats reveal">
+        <div class="stat"><span class="stat__num">100%</span><span class="stat__label">Local</span></div>
+        <div class="stat__divider"></div>
+        <div class="stat"><span class="stat__num">24/7</span><span class="stat__label">Soporte</span></div>
+        <div class="stat__divider"></div>
+        <div class="stat"><span class="stat__num">5★</span><span class="stat__label">Calidad</span></div>
+      </div>
+    </div>
+    <div class="hero__scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios" id="servicios">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Lo que hacemos</span>
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <p class="section-desc">Elegí el servicio, calculá tu presupuesto y agendá la instalación al instante.</p>
+      </div>
+      <div class="servicios__grid" id="serviciosGrid">
+        <div class="loading-cards">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+          <div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL PRESUPUESTO + AGENDAMIENTO -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+
+      <!-- PASO 1: Cantidad y presupuesto -->
+      <div class="modal-step" id="step1">
+        <button class="modal-close" id="modalClose">✕</button>
+        <div class="modal-service-header">
+          <div class="modal-icon" id="modalIcon"></div>
+          <div>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-price-unit" id="modalPriceUnit"></p>
+          </div>
+        </div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-qty-section">
+          <label>¿Cuántas unidades / ambientes?</label>
+          <div class="qty-control">
+            <button class="qty-btn" id="qtyMinus">−</button>
+            <span class="qty-val" id="qtyVal">1</span>
+            <button class="qty-btn" id="qtyPlus">+</button>
+          </div>
+        </div>
+        <div class="modal-total-box">
+          <span>Total estimado:</span>
+          <strong id="modalTotal">₲ 0</strong>
+        </div>
+        <button class="btn btn--primary btn--full" id="btnContinuar">Agendar instalación →</button>
+      </div>
+
+      <!-- PASO 2: Datos y horario -->
+      <div class="modal-step hidden" id="step2">
+        <button class="modal-close" id="modalClose2">✕</button>
+        <h2 class="modal-title">Agendá tu instalación</h2>
+        <div class="resumen-mini" id="resumenMini"></div>
+        <div class="form-agenda">
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input type="text" id="agNombre" placeholder="Nombre completo" autocomplete="name" />
+            <span class="form-error" id="errNombre"></span>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" id="agTel" placeholder="Ej: 0981 123 456" autocomplete="tel" />
+            <span class="form-error" id="errTel"></span>
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <input type="text" id="agDir" placeholder="Calle, número, barrio" autocomplete="street-address" />
+            <span class="form-error" id="errDir"></span>
+          </div>
+          <div class="form-group">
+            <label>Fecha preferida</label>
+            <input type="date" id="agFecha" />
+            <span class="form-error" id="errFecha"></span>
+          </div>
+          <div class="form-group">
+            <label>Horario de instalación</label>
+            <div class="horarios-grid" id="horariosGrid"></div>
+            <span class="form-error" id="errHorario"></span>
+          </div>
+        </div>
+        <div class="modal-btns">
+          <button class="btn btn--outline" id="btnVolver">← Volver</button>
+          <button class="btn btn--primary" id="btnAgendar">Confirmar ✓</button>
+        </div>
+      </div>
+
+      <!-- PASO 3: Éxito -->
+      <div class="modal-step hidden" id="step3">
+        <div class="success-anim">✅</div>
+        <h2 class="modal-title">¡Agendado!</h2>
+        <p class="success-msg" id="successMsg"></p>
+        <p class="success-sub">Te vamos a contactar por WhatsApp para confirmar el presupuesto y la fecha.</p>
+        <button class="btn btn--primary btn--full" id="btnCerrarFinal">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POR QUÉ ELEGIRNOS -->
+  <section class="porque" id="nosotros">
+    <div class="porque__bg"><div class="porque__orb"></div></div>
+    <div class="container">
+      <div class="section-header section-header--light reveal">
+        <span class="section-tag section-tag--light">Nuestra diferencia</span>
+        <h2 class="section-title">¿Por qué elegirnos?</h2>
+      </div>
+      <div class="porque__grid">
+        <div class="porque__visual reveal">
+          <div class="phone-mockup">
+            <div class="phone-mockup__screen">
+              <div class="app-ui">
+                <div class="app-ui__header">Mi Hogar 🏠</div>
+                <div class="app-ui__rooms">
+                  <div class="room active"><span>🛋️</span>Sala</div>
+                  <div class="room"><span>🛏️</span>Cuarto</div>
+                  <div class="room"><span>🍳</span>Cocina</div>
+                </div>
+                <div class="app-ui__controls">
+                  <div class="control-item"><span>💡 Luces</span><div class="toggle on"></div></div>
+                  <div class="control-item"><span>❄️ Aire</span><div class="toggle"></div></div>
+                  <div class="control-item"><span>🔐 Seguridad</span><div class="toggle on"></div></div>
+                  <div class="temp-display">22°C</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="porque__items">
+          <div class="porque__item reveal">
+            <div class="porque__item-num">01</div>
+            <div><h3>Empresa local</h3><p>Somos de San Estanislao. Conocemos tu comunidad y estamos cerca.</p></div>
+          </div>
+          <div class="porque__item reveal">
+            <div class="porque__item-num">02</div>
+            <div><h3>Instalación profesional</h3><p>Técnicos certificados que garantizan trabajo limpio y duradero.</p></div>
+          </div>
+          <div class="porque__item reveal">
+            <div class="porque__item-num">03</div>
+            <div><h3>Tecnología confiable</h3><p>Marcas reconocidas mundialmente para el mejor rendimiento.</p></div>
+          </div>
+          <div class="porque__item reveal">
+            <div class="porque__item-num">04</div>
+            <div><h3>Asesoramiento personalizado</h3><p>Te guiamos desde la consulta hasta la postventa.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Hablemos</span>
+        <h2 class="section-title">Contactanos</h2>
+      </div>
+      <div class="contacto__info-only">
+        <div class="info-card reveal">
+          <div class="info-card__icon">📍</div>
+          <div><strong>Ubicación</strong><p>San Estanislao, San Pedro, Paraguay</p></div>
+        </div>
+        <div class="info-card reveal">
+          <div class="info-card__icon">⏰</div>
+          <div><strong>Horario de atención</strong><p>Lunes a Viernes: 8:00 – 18:00<br>Sábados: 8:00 – 12:00</p></div>
+        </div>
+        <a href="https://wa.me/595975847738?text=Hola,%20me%20interesa%20información%20sobre%20domótica" class="btn btn--whatsapp btn--lg reveal" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribinos por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="nav__logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Domótica <strong>Santaní</strong></span>
+      </div>
+      <p class="footer__copy">© 2025 Domótica Santaní · San Estanislao, Paraguay</p>
+      <a href="admin/index.html" class="footer__admin">Admin 🔒</a>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOTANTE -->
+  <a href="https://wa.me/595975847738?text=Hola,%20me%20interesa%20información%20sobre%20domótica" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
