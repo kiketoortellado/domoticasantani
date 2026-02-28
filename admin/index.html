@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Domótica Santaní</title>
+  <meta name="theme-color" content="#0A1F44">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul: #0A1F44;
+      --celeste: #00AEEF;
+      --celeste-light: #33C1F5;
+      --blanco: #fff;
+      --gris: #F4F4F4;
+      --gris2: #e8edf5;
+      --texto: #1e293b;
+      --muted: #64748b;
+      --verde: #25D366;
+      --rojo: #ef4444;
+      --amarillo: #f59e0b;
+      --radio: 12px;
+      --shadow: 0 2px 16px rgba(10,31,68,.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f0f4f9; color: var(--texto); min-height: 100vh; }
+
+    /* LOGIN */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--azul);
+      flex-direction: column;
+      gap: 24px;
+      padding: 24px;
+    }
+    .login-screen h1 { font-family: 'Syne', sans-serif; color: #fff; font-size: 1.8rem; text-align: center; }
+    .login-screen p  { color: rgba(255,255,255,.55); font-size: .95rem; text-align: center; }
+    .btn-google {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; color: #333;
+      border: none; border-radius: 50px;
+      padding: 14px 28px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-google:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.25); }
+    .login-logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .login-logo span { color: var(--celeste); font-size: 1.6rem; }
+
+    /* APP */
+    .app { display: none; }
+    .app.visible { display: block; }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--azul);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar__logo { font-family: 'Syne', sans-serif; color: #fff; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .topbar__logo span { color: var(--celeste); }
+    .topbar__right { display: flex; align-items: center; gap: 16px; }
+    .topbar__user { color: rgba(255,255,255,.7); font-size: .85rem; }
+    .btn-logout { background: rgba(255,255,255,.1); color: #fff; border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: .85rem; transition: background .2s; }
+    .btn-logout:hover { background: rgba(255,255,255,.2); }
+
+    /* TABS */
+    .tabs { background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; gap: 0; padding: 0 24px; overflow-x: auto; }
+    .tab { padding: 14px 20px; font-weight: 600; font-size: .9rem; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: color .2s, border-color .2s; }
+    .tab.active { color: var(--azul); border-bottom-color: var(--celeste); }
+
+    /* CONTENT */
+    .content { padding: 24px; max-width: 1100px; margin: 0 auto; }
+
+    /* PANEL */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* CARDS STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: #fff; border-radius: var(--radio); padding: 20px 24px; box-shadow: var(--shadow); }
+    .stat-card__num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--azul); }
+    .stat-card__label { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+    .stat-card--celeste .stat-card__num { color: var(--celeste); }
+    .stat-card--verde .stat-card__num { color: #16a34a; }
+
+    /* AGENDAMIENTOS */
+    .agenda-list { display: flex; flex-direction: column; gap: 12px; }
+    .agenda-card {
+      background: #fff;
+      border-radius: var(--radio);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+      border-left: 4px solid var(--gris2);
+      transition: border-color .2s;
+    }
+    .agenda-card.pendiente { border-left-color: var(--amarillo); }
+    .agenda-card.confirmado { border-left-color: #16a34a; }
+    .agenda-card.cancelado { border-left-color: var(--rojo); opacity: .6; }
+    .agenda-card__title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .agenda-card__meta { font-size: .875rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px; }
+    .agenda-card__meta span { display: flex; align-items: center; gap: 4px; }
+    .agenda-card__total { font-family: 'Syne', sans-serif; font-weight: 800; color: var(--celeste); font-size: 1.1rem; margin-top: 6px; }
+    .agenda-card__actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: .75rem; font-weight: 700; }
+    .badge-pendiente { background: #fef3c7; color: #92400e; }
+    .badge-confirmado { background: #dcfce7; color: #166534; }
+    .badge-cancelado  { background: #fee2e2; color: #991b1b; }
+
+    /* BOTONES ACCIÓN */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 50px; font-size: .875rem; font-weight: 600; border: none; cursor: pointer; transition: all .2s; text-decoration: none; }
+    .btn--wa { background: var(--verde); color: #fff; }
+    .btn--wa:hover { background: #1da851; }
+    .btn--outline { background: transparent; color: var(--azul); border: 1.5px solid #cbd5e1; }
+    .btn--outline:hover { background: var(--gris); }
+    .btn--danger { background: #fee2e2; color: var(--rojo); }
+    .btn--danger:hover { background: #fecaca; }
+    .btn--primary { background: var(--celeste); color: #fff; }
+    .btn--primary:hover { background: var(--celeste-light); }
+    .btn--sm { padding: 7px 14px; font-size: .8rem; }
+
+    /* FILTROS */
+    .filtros { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+    .filtro-btn { padding: 7px 16px; border-radius: 50px; border: 1.5px solid #cbd5e1; background: #fff; font-size: .85rem; font-weight: 600; cursor: pointer; color: var(--muted); transition: all .2s; }
+    .filtro-btn.active { background: var(--azul); color: #fff; border-color: var(--azul); }
+    .search-input { padding: 9px 16px; border-radius: 50px; border: 1.5px solid #cbd5e1; font-size: .875rem; outline: none; flex: 1; min-width: 200px; }
+    .search-input:focus { border-color: var(--celeste); }
+
+    /* PRODUCTOS EDITOR */
+    .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .producto-editor {
+      background: #fff; border-radius: var(--radio); padding: 20px; box-shadow: var(--shadow);
+    }
+    .producto-editor__header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .producto-editor__icon { font-size: 2rem; }
+    .producto-editor__name { font-family: 'Syne', sans-serif; font-weight: 700; }
+    .field-group { margin-bottom: 14px; }
+    .field-group label { display: block; font-size: .8rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: .04em; text-transform: uppercase; }
+    .field-group input, .field-group textarea {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--texto);
+      outline: none; transition: border-color .2s;
+    }
+    .field-group input:focus, .field-group textarea:focus { border-color: var(--celeste); }
+    .field-group textarea { resize: vertical; rows: 3; }
+    .precio-input-wrap { position: relative; }
+    .precio-input-wrap::before { content: "₲"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 700; }
+    .precio-input-wrap input { padding-left: 28px; }
+    .save-indicator { font-size: .8rem; color: #16a34a; display: none; margin-top: 8px; }
+
+    /* EMPTY */
+    .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+    /* LOADING */
+    .loading { text-align: center; padding: 40px; color: var(--muted); }
+
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .agenda-card { grid-template-columns: 1fr; }
+      .agenda-card__actions { flex-direction: row; flex-wrap: wrap; }
+      .productos-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-logo"><span>⬡</span> Domótica Santaní</div>
+    <h1>Panel de Administración</h1>
+    <p>Acceso restringido. Iniciá sesión con tu cuenta Google.</p>
+    <button class="btn-google" id="btnGoogle">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Iniciar sesión con Google
+    </button>
+  </div>
+
+  <!-- APP -->
+  <div class="app" id="appPanel">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar__logo"><span>⬡</span> Domótica Santaní · Admin</div>
+      <div class="topbar__right">
+        <span class="topbar__user" id="userEmail"></span>
+        <button class="btn-logout" id="btnLogout">Salir</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active" data-tab="agendamientos">📅 Agendamientos</div>
+      <div class="tab" data-tab="productos">📦 Productos y Precios</div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- PANEL AGENDAMIENTOS -->
+      <div class="panel active" id="panel-agendamientos">
+        <div class="stats-row" id="statsRow">
+          <div class="stat-card"><div class="stat-card__num" id="statTotal">—</div><div class="stat-card__label">Total agendados</div></div>
+          <div class="stat-card stat-card--celeste"><div class="stat-card__num" id="statPendientes">—</div><div class="stat-card__label">Pendientes</div></div>
+          <div class="stat-card stat-card--verde"><div class="stat-card__num" id="statConfirmados">—</div><div class="stat-card__label">Confirmados</div></div>
+        </div>
+        <div class="filtros">
+          <button class="filtro-btn active" data-filtro="todos">Todos</button>
+          <button class="filtro-btn" data-filtro="pendiente">Pendientes</button>
+          <button class="filtro-btn" data-filtro="confirmado">Confirmados</button>
+          <button class="filtro-btn" data-filtro="cancelado">Cancelados</button>
+          <input type="text" class="search-input" id="searchInput" placeholder="🔍 Buscar por nombre o servicio...">
+        </div>
+        <div class="agenda-list" id="agendaList">
+          <div class="loading">Cargando agendamientos...</div>
+        </div>
+      </div>
+
+      <!-- PANEL PRODUCTOS -->
+      <div class="panel" id="panel-productos">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <h2 style="font-family:'Syne',sans-serif; font-size:1.3rem;">Editar productos y precios</h2>
+          <button class="btn btn--primary" id="btnSaveAll">💾 Guardar todos los cambios</button>
+        </div>
+        <div class="productos-grid" id="productosGrid">
+          <div class="loading">Cargando productos...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, collection, getDocs, addDoc, updateDoc,
+      doc, setDoc, serverTimestamp, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey:            "AIzaSyD0YuPRVEVZmi-nAOiXT3etSjtQ52Oki60",
+      authDomain:        "domotica-santani.firebaseapp.com",
+      projectId:         "domotica-santani",
+      storageBucket:     "domotica-santani.firebasestorage.app",
+      messagingSenderId: "892438528666",
+      appId:             "1:892438528666:web:047e75b52f18f1f56dd523",
+      measurementId:     "G-9715K1ZB3X"
+    };
+
+    const ADMIN_WA = "595975847738"; // Tu WhatsApp admin
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    // Productos por defecto
+    const DEFAULTS = [
+      { id:"iluminacion", icon:"💡", nombre:"Control de Iluminación",    desc:"Enciende, apaga y programá las luces desde el celular.",      precio:250000, unidad:"ambiente", orden:1 },
+      { id:"clima",       icon:"❄️", nombre:"Climatización Inteligente", desc:"Control automático del aire acondicionado.",                   precio:350000, unidad:"equipo",   orden:2 },
+      { id:"remoto",      icon:"📱", nombre:"Manejo Remoto",             desc:"Controlá todos los dispositivos desde tu smartphone.",         precio:150000, unidad:"unidad",   orden:3 },
+      { id:"seguridad",   icon:"🔐", nombre:"Seguridad y Monitoreo",     desc:"Cámaras y monitoreo en tiempo real.",                          precio:450000, unidad:"cámara",   orden:4 },
+      { id:"voz",         icon:"🗣️", nombre:"Asistentes de Voz",        desc:"Compatible con Alexa y Google Home.",                          precio:200000, unidad:"unidad",   orden:5 },
+    ];
+
+    let todosAgendamientos = [];
+    let filtroActual = "todos";
+    let busqueda = "";
+    let productosCache = [];
+
+    // ─── AUTH ───────────────────────────────────────────────
+    document.getElementById("btnGoogle").addEventListener("click", () => {
+      signInWithPopup(auth, provider).catch(e => alert("Error al iniciar sesión: " + e.message));
+    });
+
+    document.getElementById("btnLogout").addEventListener("click", () => signOut(auth));
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("appPanel").classList.add("visible");
+        document.getElementById("userEmail").textContent = user.email;
+        cargarAgendamientos();
+        cargarProductos();
+      } else {
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("appPanel").classList.remove("visible");
+      }
+    });
+
+    // ─── TABS ────────────────────────────────────────────────
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById("panel-" + tab.dataset.tab).classList.add("active");
+      });
+    });
+
+    // ─── AGENDAMIENTOS ───────────────────────────────────────
+    async function cargarAgendamientos() {
+      try {
+        const q = query(collection(db, "agendamientos"), orderBy("timestamp","desc"));
+        const snap = await getDocs(q);
+        todosAgendamientos = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+        actualizarStats();
+        renderAgendamientos();
+      } catch(e) {
+        document.getElementById("agendaList").innerHTML =
+          `<div class="empty"><div class="empty-icon">⚠️</div><p>Error al cargar. Verificá las reglas de Firestore.</p></div>`;
+      }
+    }
+
+    function actualizarStats() {
+      const total      = todosAgendamientos.length;
+      const pendientes = todosAgendamientos.filter(a => a.estado === "pendiente").length;
+      const confirmados= todosAgendamientos.filter(a => a.estado === "confirmado").length;
+      document.getElementById("statTotal").textContent     = total;
+      document.getElementById("statPendientes").textContent= pendientes;
+      document.getElementById("statConfirmados").textContent= confirmados;
+    }
+
+    function renderAgendamientos() {
+      let lista = todosAgendamientos;
+      if (filtroActual !== "todos") lista = lista.filter(a => a.estado === filtroActual);
+      if (busqueda) {
+        const b = busqueda.toLowerCase();
+        lista = lista.filter(a =>
+          (a.nombre||"").toLowerCase().includes(b) ||
+          (a.servicio||"").toLowerCase().includes(b)
+        );
+      }
+
+      const container = document.getElementById("agendaList");
+      if (!lista.length) {
+        container.innerHTML = `<div class="empty"><div class="empty-icon">📭</div><p>No hay agendamientos.</p></div>`;
+        return;
+      }
+
+      container.innerHTML = lista.map(a => {
+        const total = fmtGs(a.total || 0);
+        const fecha = a.fecha ? formatFecha(a.fecha) : "—";
+        const estado = a.estado || "pendiente";
+        return `
+        <div class="agenda-card ${estado}" id="card-${a.docId}">
+          <div>
+            <div class="agenda-card__title">${a.icon || ""} ${a.servicio || "Servicio"} — ${a.nombre || "Sin nombre"}</div>
+            <div class="agenda-card__meta">
+              <span>📅 ${fecha} ${a.horario || ""} hs</span>
+              <span>📍 ${a.direccion || "—"}</span>
+              <span>📱 ${a.telefono || "—"}</span>
+              <span>🔢 ${a.cantidad || 1} ${a.unidad || "unid."}</span>
+            </div>
+            <div class="agenda-card__total">${total}</div>
+          </div>
+          <div class="agenda-card__actions">
+            <span class="badge badge-${estado}">${estadoLabel(estado)}</span>
+            <button class="btn btn--wa btn--sm" onclick="enviarWA('${a.docId}')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Enviar WA
+            </button>
+            ${estado === "pendiente" ? `<button class="btn btn--outline btn--sm" onclick="cambiarEstado('${a.docId}','confirmado')">✅ Confirmar</button>` : ""}
+            ${estado !== "cancelado" ? `<button class="btn btn--danger btn--sm" onclick="cambiarEstado('${a.docId}','cancelado')">✕ Cancelar</button>` : ""}
+          </div>
+        </div>`;
+      }).join("");
+    }
+
+    // ── Enviar WA al número del CLIENTE ────────────────────
+    window.enviarWA = function(docId) {
+      const a = todosAgendamientos.find(x => x.docId === docId);
+      if (!a) return;
+
+      // Limpiar número: sacar espacios, guiones, paréntesis
+      let num = (a.telefono || "").replace(/[\s\-\(\)]/g, "");
+      // Si empieza con 0, reemplazar con 595 (Paraguay)
+      if (num.startsWith("0")) num = "595" + num.substring(1);
+      // Si no tiene código de país, agregar 595
+      if (!num.startsWith("595") && !num.startsWith("+")) num = "595" + num;
+      num = num.replace(/^\+/, "");
+
+      const total = fmtGs(a.total || 0);
+      const fecha = a.fecha ? formatFecha(a.fecha) : "—";
+
+      const msg = `Hola ${a.nombre || ""} 👋, soy de *Domótica Santaní*.
+
+Te escribimos para confirmar tu agendamiento:
+
+🔧 *Servicio:* ${a.servicio}
+🔢 *Cantidad:* ${a.cantidad} ${a.unidad || "unid."}
+💰 *Presupuesto estimado:* ${total}
+📅 *Fecha:* ${fecha} a las *${a.horario} hs*
+📍 *Dirección:* ${a.direccion}
+
+¿Confirmás la instalación? Respondé *SÍ* para confirmar o escribinos si necesitás cambiar algo. 😊`;
+
+      const url = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    };
+
+    window.cambiarEstado = async function(docId, nuevoEstado) {
+      try {
+        await updateDoc(doc(db, "agendamientos", docId), { estado: nuevoEstado });
+        const idx = todosAgendamientos.findIndex(x => x.docId === docId);
+        if (idx !== -1) todosAgendamientos[idx].estado = nuevoEstado;
+        actualizarStats();
+        renderAgendamientos();
+      } catch(e) {
+        alert("Error al actualizar estado.");
+      }
+    };
+
+    // Filtros
+    document.querySelectorAll(".filtro-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        filtroActual = btn.dataset.filtro;
+        renderAgendamientos();
+      });
+    });
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+      busqueda = e.target.value;
+      renderAgendamientos();
+    });
+
+    // ─── PRODUCTOS ───────────────────────────────────────────
+    async function cargarProductos() {
+      const grid = document.getElementById("productosGrid");
+      try {
+        const snap = await getDocs(collection(db, "servicios"));
+        if (!snap.empty) {
+          productosCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          productosCache.sort((a,b) => (a.orden||0) - (b.orden||0));
+        } else {
+          productosCache = DEFAULTS;
+        }
+        renderProductos();
+      } catch(e) {
+        grid.innerHTML = `<div class="loading">Error al cargar productos.</div>`;
+      }
+    }
+
+    function renderProductos() {
+      const grid = document.getElementById("productosGrid");
+      grid.innerHTML = productosCache.map((p, i) => `
+        <div class="producto-editor" data-idx="${i}">
+          <div class="producto-editor__header">
+            <div class="producto-editor__icon">${p.icon}</div>
+            <div class="producto-editor__name">${p.nombre}</div>
+          </div>
+          <div class="field-group">
+            <label>Nombre del servicio</label>
+            <input type="text" class="p-nombre" value="${p.nombre}" />
+          </div>
+          <div class="field-group">
+            <label>Descripción</label>
+            <textarea class="p-desc" rows="3">${p.desc}</textarea>
+          </div>
+          <div class="field-group">
+            <label>Precio (₲) por ${p.unidad}</label>
+            <div class="precio-input-wrap">
+              <input type="number" class="p-precio" value="${p.precio}" min="0" step="1000" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Unidad (ambiente / equipo / cámara...)</label>
+            <input type="text" class="p-unidad" value="${p.unidad}" />
+          </div>
+          <div class="save-indicator" id="saved-${i}">✅ Guardado</div>
+        </div>
+      `).join("");
+    }
+
+    document.getElementById("btnSaveAll").addEventListener("click", async () => {
+      const btn = document.getElementById("btnSaveAll");
+      btn.textContent = "Guardando...";
+      btn.disabled = true;
+
+      const cards = document.querySelectorAll(".producto-editor");
+      let ok = 0;
+
+      for (const card of cards) {
+        const idx    = parseInt(card.dataset.idx);
+        const prod   = productosCache[idx];
+        const nombre = card.querySelector(".p-nombre").value.trim();
+        const desc   = card.querySelector(".p-desc").value.trim();
+        const precio = parseInt(card.querySelector(".p-precio").value) || 0;
+        const unidad = card.querySelector(".p-unidad").value.trim();
+
+        const data = { ...prod, nombre, desc, precio, unidad };
+
+        try {
+          await setDoc(doc(db, "servicios", prod.id), data);
+          productosCache[idx] = data;
+          document.getElementById(`saved-${idx}`).style.display = "block";
+          setTimeout(() => { document.getElementById(`saved-${idx}`).style.display = "none"; }, 3000);
+          ok++;
+        } catch(e) {
+          console.error("Error guardando", prod.id, e);
+        }
+      }
+
+      btn.textContent = ok === cards.length ? "💾 Guardar todos los cambios" : "⚠️ Algunos no se guardaron";
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = "💾 Guardar todos los cambios"; }, 3000);
+    });
+
+    // ─── HELPERS ────────────────────────────────────────────
+    function fmtGs(n) { return "₲ " + Number(n).toLocaleString("es-PY"); }
+    function formatFecha(iso) {
+      const [y,m,d] = iso.split("-");
+      return `${d}/${m}/${y}`;
+    }
+    function estadoLabel(e) {
+      return { pendiente:"⏳ Pendiente", confirmado:"✅ Confirmado", cancelado:"✕ Cancelado" }[e] || e;
+    }
+  </script>
+</body>
+</html>
