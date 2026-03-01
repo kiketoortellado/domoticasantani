@@ -78,15 +78,16 @@ a { text-decoration: none; }
 
 /* ── LOGO ── */
 .logo-svg {
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 58px;
   color: var(--celeste);
   flex-shrink: 0;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,0.85));
 }
 
 .logo-svg--small {
-  width: 32px;
-  height: 32px;
+  width: 46px;
+  height: 46px;
 }
 
 .logo-text-wrapper {
