@@ -1,6 +1,6 @@
 // =============================================
-// DOMÓTICA SANTANÍ — APP.JS v2
-// 3 servicios · GPS + OpenStreetMap · Firebase
+// DOMÓTICA SANTANÍ — APP.JS v3
+// Iconos SVG · Tipografía optimizada · Mobile-first
 // =============================================
 
 import { initializeApp }          from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -24,28 +24,48 @@ const app       = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db        = getFirestore(app);
 
+// ── Iconos SVG ────────────────────────────────────────────
+const ICONS = {
+  iluminacion: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6M10 22h4M12 2v2M12 22v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 6.34L4.93 4.93M19.07 19.07l-1.41-1.41"/></svg>`,
+  
+  climatizacion: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7v10M18 7v10M8 17v2M12 17v2M16 17v2"/></svg>`,
+  
+  seguridad: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>`,
+  
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`
+};
+
 // ── Horarios 16hs–19hs cada 30 min ────────────────────────
 const HORARIOS = ["16:00","16:30","17:00","17:30","18:00","18:30","19:00"];
 
-// ── Servicios por defecto (solo 3) ────────────────────────
+// ── Servicios por defecto ────────────────────────────────
 const DEFAULTS = [
   {
-    id: "iluminacion", icon: "💡",
+    id: "iluminacion",
+    icon: ICONS.iluminacion,
     nombre: "Control de Iluminación",
     desc: "Encendé, apagá y programá las luces de toda tu casa desde el celular o por voz. Ahorrá energía y creá ambientes perfectos.",
-    precio: 250000, unidad: "ambiente", orden: 1
+    precio: 250000, 
+    unidad: "ambiente", 
+    orden: 1
   },
   {
-    id: "climatizacion", icon: "❄️",
+    id: "climatizacion",
+    icon: ICONS.climatizacion,
     nombre: "Climatización Inteligente",
     desc: "Control automático del aire acondicionado según temperatura y horarios. Mayor confort con menor consumo de energía.",
-    precio: 350000, unidad: "equipo", orden: 2
+    precio: 350000, 
+    unidad: "equipo", 
+    orden: 2
   },
   {
-    id: "seguridad", icon: "🔐",
+    id: "seguridad",
+    icon: ICONS.seguridad,
     nombre: "Seguridad y Monitoreo",
     desc: "Cámaras de vigilancia y monitoreo en tiempo real desde tu celular. Protegé tu hogar y familia las 24 horas.",
-    precio: 450000, unidad: "cámara", orden: 3
+    precio: 450000, 
+    unidad: "cámara", 
+    orden: 3
   }
 ];
 
@@ -54,11 +74,14 @@ let servicios        = [];
 let selectedServicio = null;
 let qty              = 1;
 let selectedHorario  = null;
-let gpsCoords        = null; // { lat, lon, display }
+let gpsCoords        = null;
 
 // ── Formato guaraní ───────────────────────────────────────
 const fmtGs = n => "₲ " + Number(n).toLocaleString("es-PY");
-const formatFecha = iso => { const [y,m,d] = iso.split("-"); return `${d}/${m}/${y}`; };
+const formatFecha = iso => { 
+  const [y,m,d] = iso.split("-"); 
+  return `${d}/${m}/${y}`; 
+};
 
 // ─────────────────────────────────────────────────────────
 // 1. CARGAR SERVICIOS
@@ -67,7 +90,11 @@ async function cargarServicios() {
   try {
     const snap = await getDocs(collection(db, "servicios"));
     if (!snap.empty) {
-      servicios = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      servicios = snap.docs.map(d => ({ 
+        id: d.id, 
+        ...d.data(),
+        icon: ICONS[d.data().id] || ICONS.iluminacion
+      }));
       servicios.sort((a, b) => (a.orden || 0) - (b.orden || 0));
     } else {
       servicios = DEFAULTS;
@@ -87,12 +114,16 @@ function renderServicios() {
       <h3>${s.nombre}</h3>
       <p>${s.desc}</p>
       <div class="servicio-card__precio">${fmtGs(s.precio)} <span>/ ${s.unidad}</span></div>
-      <div class="servicio-card__cta">Cotizar y agendar →</div>
+      <div class="servicio-card__cta">
+        Cotizar y agendar
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </div>
       <div class="servicio-card__line"></div>
     </div>
   `).join("");
 
-  // Re-observar cards nuevas
   document.querySelectorAll(".servicio-card.reveal").forEach(el => revealObs.observe(el));
 }
 
@@ -107,17 +138,23 @@ window.abrirModal = function(id) {
   selectedHorario = null;
   gpsCoords = null;
 
-  // Reset campo dirección
+  // Reset
   document.getElementById("agDir").value = "";
   document.getElementById("ubicacionResult").className = "ubicacion-result";
   document.getElementById("ubicacionError").className  = "ubicacion-error";
   const map = document.getElementById("mapPreview");
   map.className = "";
   map.src = "";
-  document.getElementById("btnUbicacion").textContent = "📍 Usar mi ubicación actual";
+  document.getElementById("btnUbicacion").innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </svg>
+    Usar mi ubicación actual
+  `;
   document.getElementById("btnUbicacion").classList.remove("loading");
 
-  document.getElementById("modalIcon").textContent      = s.icon;
+  document.getElementById("modalIcon").innerHTML      = s.icon;
   document.getElementById("modalTitle").textContent     = s.nombre;
   document.getElementById("modalPriceUnit").textContent = `${fmtGs(s.precio)} por ${s.unidad}`;
   document.getElementById("modalDesc").textContent      = s.desc;
@@ -152,29 +189,36 @@ function actualizarTotal() {
   document.getElementById("modalTotal").textContent = fmtGs(selectedServicio.precio * qty);
 }
 
-document.getElementById("qtyMinus").addEventListener("click", () => { if(qty>1){qty--;actualizarTotal();} });
-document.getElementById("qtyPlus").addEventListener("click",  () => { if(qty<20){qty++;actualizarTotal();} });
+document.getElementById("qtyMinus").addEventListener("click", () => { 
+  if(qty>1){qty--;actualizarTotal();} 
+});
+
+document.getElementById("qtyPlus").addEventListener("click",  () => { 
+  if(qty<20){qty++;actualizarTotal();} 
+});
 
 ["modalClose","modalClose2"].forEach(id =>
   document.getElementById(id).addEventListener("click", cerrarModal)
 );
+
 document.getElementById("modalOverlay").addEventListener("click", e => {
   if (e.target === document.getElementById("modalOverlay")) cerrarModal();
 });
+
 document.getElementById("btnCerrarFinal").addEventListener("click", cerrarModal);
 
 // Paso 1 → 2
 document.getElementById("btnContinuar").addEventListener("click", () => {
   const total = selectedServicio.precio * qty;
   document.getElementById("resumenMini").innerHTML = `
-    <span class="resumen-icon">${selectedServicio.icon}</span>
+    <div class="resumen-icon">${selectedServicio.icon}</div>
     <div>
       <strong>${selectedServicio.nombre}</strong>
       <span>${qty} ${selectedServicio.unidad}${qty>1?"s":""} · ${fmtGs(total)}</span>
     </div>`;
   renderHorarios();
-  // Fecha mínima = mañana
-  const d = new Date(); d.setDate(d.getDate()+1);
+  const d = new Date(); 
+  d.setDate(d.getDate()+1);
   document.getElementById("agFecha").min = d.toISOString().split("T")[0];
   mostrarStep(2);
 });
@@ -198,7 +242,7 @@ window.selHorario = function(h) {
 };
 
 // ─────────────────────────────────────────────────────────
-// 3. GPS + OPENSTREETMAP (Nominatim geocoding inverso)
+// 3. GPS + OPENSTREETMAP
 // ─────────────────────────────────────────────────────────
 document.getElementById("btnUbicacion").addEventListener("click", async () => {
   const btn = document.getElementById("btnUbicacion");
@@ -212,7 +256,12 @@ document.getElementById("btnUbicacion").addEventListener("click", async () => {
     return;
   }
 
-  btn.textContent = "⏳ Obteniendo ubicación...";
+  btn.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+      <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/>
+    </svg>
+    Obteniendo ubicación...
+  `;
   btn.classList.add("loading");
   resultEl.className = "ubicacion-result";
   errorEl.className  = "ubicacion-error";
@@ -223,7 +272,6 @@ document.getElementById("btnUbicacion").addEventListener("click", async () => {
       const { latitude: lat, longitude: lon } = pos.coords;
 
       try {
-        // Geocoding inverso con Nominatim (gratis, no necesita API key)
         const res = await fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=es`,
           { headers: { "Accept-Language": "es" } }
@@ -243,31 +291,32 @@ document.getElementById("btnUbicacion").addEventListener("click", async () => {
 
         gpsCoords = { lat, lon, display };
 
-        // Mostrar resultado
-        resultEl.innerHTML = `✅ <strong>${display}</strong><br><small style="opacity:.7">Lat: ${lat.toFixed(5)} · Lon: ${lon.toFixed(5)}</small>`;
+        resultEl.innerHTML = `<strong>${display}</strong><br><small style="opacity:.7">Lat: ${lat.toFixed(5)} · Lon: ${lon.toFixed(5)}</small>`;
         resultEl.className = "ubicacion-result visible";
         errorEl.className  = "ubicacion-error";
 
-        // Mapa estático con OpenStreetMap tiles via staticmap
         const zoom = 16;
         const size = "600x200";
         mapEl.src = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lon}&zoom=${zoom}&size=${size}&markers=${lat},${lon},red`;
         mapEl.className = "visible";
         mapEl.onerror = () => { mapEl.className = ""; };
 
-        // Pre-llenar campo dirección
         document.getElementById("agDir").value = display;
         document.getElementById("errDir").textContent = "";
 
       } catch (err) {
-        // Si falla el geocoding, usamos solo coordenadas
         gpsCoords = { lat, lon, display: `${lat.toFixed(5)}, ${lon.toFixed(5)}` };
         resultEl.innerHTML = `📍 Coordenadas: ${lat.toFixed(5)}, ${lon.toFixed(5)}`;
         resultEl.className = "ubicacion-result visible";
         document.getElementById("agDir").value = gpsCoords.display;
       }
 
-      btn.textContent = "📍 Ubicación obtenida ✓";
+      btn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Ubicación obtenida
+      `;
     },
     (err) => {
       const msgs = {
@@ -277,7 +326,13 @@ document.getElementById("btnUbicacion").addEventListener("click", async () => {
       };
       errorEl.textContent = msgs[err.code] || "Error al obtener ubicación.";
       errorEl.className = "ubicacion-error visible";
-      btn.textContent = "📍 Usar mi ubicación actual";
+      btn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        Usar mi ubicación actual
+      `;
     },
     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
   );
@@ -286,10 +341,9 @@ document.getElementById("btnUbicacion").addEventListener("click", async () => {
 });
 
 // ─────────────────────────────────────────────────────────
-// 4. GUARDAR AGENDAMIENTO EN FIRESTORE
+// 4. GUARDAR AGENDAMIENTO
 // ─────────────────────────────────────────────────────────
 document.getElementById("btnAgendar").addEventListener("click", async () => {
-  // Limpiar errores
   ["errNombre","errTel","errDir","errFecha","errHorario"].forEach(id =>
     document.getElementById(id).textContent = ""
   );
@@ -330,7 +384,12 @@ document.getElementById("btnAgendar").addEventListener("click", async () => {
   if (!valid) return;
 
   const btn = document.getElementById("btnAgendar");
-  btn.textContent = "Guardando...";
+  btn.innerHTML = `
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin">
+      <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/>
+    </svg>
+    Guardando...
+  `;
   btn.disabled    = true;
 
   const total = selectedServicio.precio * qty;
@@ -346,7 +405,7 @@ document.getElementById("btnAgendar").addEventListener("click", async () => {
       horario:    selectedHorario,
       servicio:   selectedServicio.nombre,
       servicioId: selectedServicio.id,
-      icon:       selectedServicio.icon,
+      icon:       selectedServicio.id,
       unidad:     selectedServicio.unidad,
       cantidad:   qty,
       precioUnit: selectedServicio.precio,
@@ -355,7 +414,10 @@ document.getElementById("btnAgendar").addEventListener("click", async () => {
       timestamp:  serverTimestamp()
     });
 
-    logEvent(analytics, "agendamiento_creado", { servicio: selectedServicio.nombre, total });
+    logEvent(analytics, "agendamiento_creado", { 
+      servicio: selectedServicio.nombre, 
+      total 
+    });
 
     document.getElementById("successMsg").textContent =
       `${nombre}, tu instalación de "${selectedServicio.nombre}" (${qty} ${selectedServicio.unidad}${qty>1?"s":""}) quedó agendada para el ${formatFecha(fecha)} a las ${selectedHorario} hs.`;
@@ -365,8 +427,8 @@ document.getElementById("btnAgendar").addEventListener("click", async () => {
     console.error(err);
     alert("Error al guardar. Intentá de nuevo o escribinos por WhatsApp.");
   } finally {
-    btn.textContent = "Confirmar ✓";
-    btn.disabled    = false;
+    btn.innerHTML = "Confirmar";
+    btn.disabled  = false;
   }
 });
 
@@ -380,7 +442,7 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
 document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
 
