@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="css/estilos.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -19,17 +19,31 @@
 <header class="header" id="header">
   <nav class="nav container">
     <div class="nav__logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">Domótica <strong>Santaní</strong></span>
+      <svg class="logo-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 20L20 80V180H80V120H120V180H180V80L100 20Z" stroke="currentColor" stroke-width="8" fill="none"/>
+        <path d="M100 50C100 50 140 75 140 105C140 125 122 140 100 140C78 140 60 125 60 105C60 75 100 50 100 50Z" stroke="currentColor" stroke-width="6" fill="none"/>
+        <circle cx="100" cy="105" r="8" fill="currentColor"/>
+        <path d="M70 60Q100 40 130 60" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+        <path d="M60 75Q100 50 140 75" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+      <div class="logo-text-wrapper">
+        <span class="logo-text">DOMÓTICA</span>
+        <span class="logo-subtext">SANTANÍ</span>
+      </div>
     </div>
     <ul class="nav__menu" id="navMenu">
-      <li><a href="#inicio"    class="nav__link">Inicio</a></li>
+      <li><a href="#inicio" class="nav__link">Inicio</a></li>
       <li><a href="#servicios" class="nav__link">Servicios</a></li>
-      <li><a href="#nosotros"  class="nav__link">Nosotros</a></li>
-      <li><a href="#contacto"  class="nav__link">Contacto</a></li>
+      <li><a href="#nosotros" class="nav__link">Nosotros</a></li>
+      <li><a href="#contacto" class="nav__link">Contacto</a></li>
     </ul>
     <div class="nav__right">
-      <a href="admin/index.html" class="btn-admin" title="Admin">🔒</a>
+      <a href="admin/index.html" class="btn-admin" title="Admin">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </a>
       <button class="nav__toggle" id="navToggle" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
@@ -46,13 +60,21 @@
     <div class="hero__orb hero__orb--3"></div>
   </div>
   <div class="container hero__content">
-    <div class="hero__badge reveal">🏠 Tecnología para tu hogar</div>
+    <div class="hero__badge reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      Tecnología para tu hogar
+    </div>
     <h1 class="hero__title reveal">Tu casa, <em>más inteligente</em> que nunca</h1>
     <p class="hero__subtitle reveal">Iluminación, climatización y seguridad automatizada. Instalación profesional en San Estanislao.</p>
     <div class="hero__ctas reveal">
       <a href="#servicios" class="btn btn--primary">Ver servicios y precios</a>
       <a href="https://wa.me/595975847738?text=Hola,%20quiero%20información%20sobre%20domótica" class="btn btn--whatsapp" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
         WhatsApp
       </a>
     </div>
@@ -89,7 +111,12 @@
 
     <!-- PASO 1: Cantidad -->
     <div class="modal-step" id="step1">
-      <button class="modal-close" id="modalClose">✕</button>
+      <button class="modal-close" id="modalClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div class="modal-service-header">
         <div class="modal-icon" id="modalIcon"></div>
         <div>
@@ -101,21 +128,40 @@
       <div class="modal-qty-section">
         <label>¿Cuántas unidades / ambientes?</label>
         <div class="qty-control">
-          <button class="qty-btn" id="qtyMinus">−</button>
+          <button class="qty-btn" id="qtyMinus">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
           <span class="qty-val" id="qtyVal">1</span>
-          <button class="qty-btn" id="qtyPlus">+</button>
+          <button class="qty-btn" id="qtyPlus">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
         </div>
       </div>
       <div class="modal-total-box">
         <span>Total estimado:</span>
         <strong id="modalTotal">₲ 0</strong>
       </div>
-      <button class="btn btn--primary btn--full" id="btnContinuar">Agendar instalación →</button>
+      <button class="btn btn--primary btn--full" id="btnContinuar">
+        Agendar instalación
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
     </div>
 
     <!-- PASO 2: Datos + ubicación + horario -->
     <div class="modal-step hidden" id="step2">
-      <button class="modal-close" id="modalClose2">✕</button>
+      <button class="modal-close" id="modalClose2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <h2 class="modal-title">Agendá tu instalación</h2>
       <div class="resumen-mini" id="resumenMini"></div>
       <div class="form-agenda">
@@ -135,7 +181,11 @@
           <label>Dirección de instalación</label>
           <div class="ubicacion-wrapper">
             <button class="btn-ubicacion" id="btnUbicacion" type="button">
-              📍 Usar mi ubicación actual
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Usar mi ubicación actual
             </button>
             <div class="ubicacion-result" id="ubicacionResult"></div>
             <div class="ubicacion-error" id="ubicacionError"></div>
@@ -157,14 +207,23 @@
         </div>
       </div>
       <div class="modal-btns">
-        <button class="btn btn--outline" id="btnVolver">← Volver</button>
-        <button class="btn btn--primary" id="btnAgendar">Confirmar ✓</button>
+        <button class="btn btn--outline" id="btnVolver">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          Volver
+        </button>
+        <button class="btn btn--primary" id="btnAgendar">Confirmar</button>
       </div>
     </div>
 
     <!-- PASO 3: Éxito -->
     <div class="modal-step hidden" id="step3">
-      <div class="success-anim">✅</div>
+      <div class="success-anim">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
       <h2 class="modal-title">¡Agendado!</h2>
       <p class="success-msg" id="successMsg"></p>
       <p class="success-sub">Te contactamos por WhatsApp para confirmar el presupuesto y la fecha.</p>
@@ -186,16 +245,62 @@
         <div class="phone-mockup">
           <div class="phone-mockup__screen">
             <div class="app-ui">
-              <div class="app-ui__header">Mi Hogar 🏠</div>
+              <div class="app-ui__header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Mi Hogar
+              </div>
               <div class="app-ui__rooms">
-                <div class="room active"><span>🛋️</span>Sala</div>
-                <div class="room"><span>🛏️</span>Cuarto</div>
-                <div class="room"><span>🍳</span>Cocina</div>
+                <div class="room active">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 22h20M2 6h20M2 10h20M2 14h20M2 18h20"/>
+                  </svg>
+                  Sala
+                </div>
+                <div class="room">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 20h20M5 20v-8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v8"/>
+                  </svg>
+                  Cuarto
+                </div>
+                <div class="room">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>
+                  </svg>
+                  Cocina
+                </div>
               </div>
               <div class="app-ui__controls">
-                <div class="control-item"><span>💡 Luces</span><div class="toggle on"></div></div>
-                <div class="control-item"><span>❄️ Aire</span><div class="toggle"></div></div>
-                <div class="control-item"><span>🔐 Seguridad</span><div class="toggle on"></div></div>
+                <div class="control-item">
+                  <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 18h6M10 22h4M12 2v2M12 22v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 6.34L4.93 4.93M19.07 19.07l-1.41-1.41"/>
+                    </svg>
+                    Luces
+                  </span>
+                  <div class="toggle on"></div>
+                </div>
+                <div class="control-item">
+                  <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2v20M2 12h20"/>
+                    </svg>
+                    Aire
+                  </span>
+                  <div class="toggle"></div>
+                </div>
+                <div class="control-item">
+                  <span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Seguridad
+                  </span>
+                  <div class="toggle on"></div>
+                </div>
                 <div class="temp-display">22°C</div>
               </div>
             </div>
@@ -205,19 +310,31 @@
       <div class="porque__items">
         <div class="porque__item reveal">
           <div class="porque__item-num">01</div>
-          <div><h3>Empresa local</h3><p>Somos de San Estanislao. Conocemos tu comunidad y estamos cerca.</p></div>
+          <div>
+            <h3>Empresa local</h3>
+            <p>Somos de San Estanislao. Conocemos tu comunidad y estamos cerca.</p>
+          </div>
         </div>
         <div class="porque__item reveal">
           <div class="porque__item-num">02</div>
-          <div><h3>Instalación profesional</h3><p>Técnicos certificados, trabajo limpio y garantizado.</p></div>
+          <div>
+            <h3>Instalación profesional</h3>
+            <p>Técnicos certificados, trabajo limpio y garantizado.</p>
+          </div>
         </div>
         <div class="porque__item reveal">
           <div class="porque__item-num">03</div>
-          <div><h3>Tecnología confiable</h3><p>Marcas reconocidas, control desde el celular y por voz.</p></div>
+          <div>
+            <h3>Tecnología confiable</h3>
+            <p>Marcas reconocidas, control desde el celular y por voz.</p>
+          </div>
         </div>
         <div class="porque__item reveal">
           <div class="porque__item-num">04</div>
-          <div><h3>Asesoramiento personalizado</h3><p>Te guiamos desde la consulta hasta la postventa.</p></div>
+          <div>
+            <h3>Asesoramiento personalizado</h3>
+            <p>Te guiamos desde la consulta hasta la postventa.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -233,15 +350,33 @@
     </div>
     <div class="contacto__info-only">
       <div class="info-card reveal">
-        <div class="info-card__icon">📍</div>
-        <div><strong>Ubicación</strong><p>San Estanislao, San Pedro, Paraguay</p></div>
+        <div class="info-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <div>
+          <strong>Ubicación</strong>
+          <p>San Estanislao, San Pedro, Paraguay</p>
+        </div>
       </div>
       <div class="info-card reveal">
-        <div class="info-card__icon">⏰</div>
-        <div><strong>Horario</strong><p>Lunes a Viernes 8:00–18:00 · Sábados 8:00–12:00</p></div>
+        <div class="info-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div>
+          <strong>Horario</strong>
+          <p>Lunes a Viernes 8:00–18:00 · Sábados 8:00–12:00</p>
+        </div>
       </div>
       <a href="https://wa.me/595975847738?text=Hola,%20quiero%20información%20sobre%20domótica" class="btn btn--whatsapp btn--lg btn--full reveal" target="_blank" rel="noopener">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
         Escribinos por WhatsApp
       </a>
     </div>
@@ -252,17 +387,32 @@
 <footer class="footer">
   <div class="container footer__inner">
     <div class="nav__logo">
-      <span class="logo-icon">⬡</span>
-      <span class="logo-text">Domótica <strong>Santaní</strong></span>
+      <svg class="logo-svg logo-svg--small" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 20L20 80V180H80V120H120V180H180V80L100 20Z" stroke="currentColor" stroke-width="8" fill="none"/>
+        <path d="M100 50C100 50 140 75 140 105C140 125 122 140 100 140C78 140 60 125 60 105C60 75 100 50 100 50Z" stroke="currentColor" stroke-width="6" fill="none"/>
+        <circle cx="100" cy="105" r="8" fill="currentColor"/>
+      </svg>
+      <div class="logo-text-wrapper">
+        <span class="logo-text">DOMÓTICA</span>
+        <span class="logo-subtext">SANTANÍ</span>
+      </div>
     </div>
     <p class="footer__copy">© 2025 Domótica Santaní · San Estanislao</p>
-    <a href="admin/index.html" class="footer__admin">Admin 🔒</a>
+    <a href="admin/index.html" class="footer__admin">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Admin
+    </a>
   </div>
 </footer>
 
 <!-- WHATSAPP FLOTANTE -->
 <a href="https://wa.me/595975847738?text=Hola,%20quiero%20información%20sobre%20domótica" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
 </a>
 
 <script src="js/main.js"></script>
